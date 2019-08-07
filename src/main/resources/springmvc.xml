@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+
+
+<context:component-scan base-package="com.zhangbotang.controller"/>
+
+<!--注解驱动  处理器映射器处理适配器 -->
+<mvc:annotation-driven/>
+<!-- 配置视图解析器 -->
+
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  <!-- 前缀 -->
+  <property name="prefix" value="/WEB-INF/view/"></property>
+  <!-- 后缀 -->
+  <property name="suffix" value=".jsp"></property>
+
+</bean>
+
+
+
+<!-- 文件上传的处理类 -->
+<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+
+<!-- 不拦截静态资源  css js  .jsp等-->
+<mvc:default-servlet-handler/>
+
+
+ <!-- 自定义拦截器 -->
+	<!-- <mvc:interceptors>
+拦截器的配置
+	  <mvc:interceptor>
+	  拦截所有
+	     <mvc:mapping path="/**"/>
+	     不拦截
+	     <mvc:exclude-mapping path="/toLogin"/>
+	     <mvc:exclude-mapping path="/login"/>
+	     配置拦截器类的地址
+	     <bean class="com.goodsys.interceptor.LoginInterceptor"/>
+	  </mvc:interceptor>
+	</mvc:interceptors> -->
+	
+   <!-- 不拦截静态资源配置 -->
+	<mvc:resources location="resource" mapping="/resource/**"/>
+	
+	
+
+</beans>

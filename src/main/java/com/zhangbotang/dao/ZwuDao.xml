@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.zhangbotang.dao.ZwuDao">
+<!-- 列表展示 -->
+<select id="selects" resultType="com.zhangbotang.domain.Zwu">
+select zid,zname,durle,tname from zw z,ztype t where z.tid=t.tid
+<if test="mohu!=null and mohu!=''">
+ and zname like '%${mohu}%'
+</if>
+</select>
+
+<!-- 查询类型 -->
+<select id="getZtype" resultType="com.zhangbotang.domain.Ztype">
+select tid,tname from ztype
+</select>
+
+<!-- 添加 -->
+<insert id="add">
+insert into zw
+<set>
+zname=#{zname},durle=#{durle},tid=#{tid},
+</set>
+</insert>
+
+<!-- 修改 -->
+<update id="update">
+update zw 
+<set>
+zname=#{zname},durle=#{durle},tid=#{tid},
+</set>
+where zid=#{zid}
+</update>
+
+<!-- 批量删除 -->
+<delete id="deleteAll">
+delete from zw where zid in(
+<foreach collection="ids" item="zid" separator=",">
+#{zid}
+</foreach>
+)
+</delete>
+
+</mapper>
